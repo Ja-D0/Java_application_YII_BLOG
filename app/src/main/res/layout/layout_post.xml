@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/postImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/post_default_picture"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/postData" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/postData"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/postImage">
+
+        <TextView
+            android:id="@+id/postTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/postTitle"
+            android:paddingVertical="5dp"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/postAuthor"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/postAuthor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/postAuthor"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/postTitle"
+            app:layout_constraintBottom_toTopOf="@+id/postDescription"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/postDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/postDescription"
+            android:paddingVertical="15dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/postAuthor"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/post_created_at"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="12.34.3212"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postData"/>
+
+    <TextView
+        android:id="@+id/created"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/postCreated"
+        android:textSize="14sp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintRight_toLeftOf="@id/post_created_at"
+        app:layout_constraintTop_toBottomOf="@id/postData"/>
+
+    <TextView
+        android:id="@+id/post_updated_at"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="12.32.4324"
+        app:layout_constraintTop_toBottomOf="@id/post_created_at"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/updated"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="@string/postUpdated"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toBottomOf="@id/created"
+        app:layout_constraintRight_toLeftOf="@id/post_updated_at"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

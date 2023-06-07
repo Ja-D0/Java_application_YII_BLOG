@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="1"
+        android:title="@string/profile" />
+    <item
+        android:id="@+id/action_myPosts"
+        android:orderInCategory="2"
+        android:title="@string/myPosts" />
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="3"
+        android:title="@string/refresh"/>
+</menu>

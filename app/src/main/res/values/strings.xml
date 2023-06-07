@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">BLOG</string>
+    <string name="profile">Профиль</string>
+    <string name="myPosts">Мои объявления</string>
+    <string name="AllPosts">Все объявления</string>
+    <string name="postTitle">Заголовок</string>
+    <string name="postAuthor">Автор</string>
+    <string name="postDescription">Описание</string>
+    <string name="postCreated">Создано:</string>
+    <string name="postUpdated">Обновлено:</string>
+    <string name="createPost">Создать объявление</string>
+    <string name="refresh">Обновить</string>
+    <string name="delete">Удалить</string>
+</resources>
