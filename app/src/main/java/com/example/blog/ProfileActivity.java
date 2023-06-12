@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView profileTitle, nickname, email;
+    private TextView profileTitle, nickname, email, updated_at, created_at;
     private Button update, delete;
 
     @Override
@@ -20,6 +20,8 @@ public class ProfileActivity extends AppCompatActivity {
         profileTitle = findViewById(R.id.profileTitle);
         nickname = findViewById(R.id.nickname);
         email = findViewById(R.id.email);
+        updated_at = findViewById(R.id.profileUpdated_at);
+        created_at = findViewById(R.id.profileCreated_at);
         update = findViewById(R.id.profileInformationUpdateButton);
         delete = findViewById(R.id.profileInformationDeleteButton);
 
@@ -30,5 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileTitle.setText(User.getUsername());
         nickname.setText(User.getNickname());
         email.setText(User.getEmail());
+        updated_at.setText(User.getUpdated_at());
+        created_at.setText(User.getCreated_at());
     }
 }

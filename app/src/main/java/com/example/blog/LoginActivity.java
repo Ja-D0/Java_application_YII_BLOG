@@ -14,9 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginInterface {
 
     private TextView login;
     private Button enter;
@@ -30,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
+        HttpRequestController.init();
         login = findViewById(R.id.loginTitle);
         login.setText("Вход");
         enter = findViewById(R.id.enter);
@@ -46,26 +51,34 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginOrEmail = loginField.getText().toString();
                 password = passwordField.getText().toString();
-                if (login(v, loginOrEmail, password)){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                if (checkLoginFields(v))
+                    HttpRequestController.check_user(loginOrEmail, password, LoginActivity.this, v);
             }
         });
     }
 
-    private boolean login(View view, String loginOrEmail, String password){
-        if (Objects.equals(loginOrEmail, "") || Objects.equals(password, "")){
+    private boolean checkLoginFields(View view){
+        if (Objects.equals(loginOrEmail, "") || Objects.equals(password, "")) {
             Snackbar.make(view, "Введите логин и пароль", Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (!Objects.equals(loginOrEmail, testLogin) || !Objects.equals(password, testPassword)) {
-            Snackbar.make(view, "Неправильный логин или пароль", Snackbar.LENGTH_SHORT).show();
-            return false;
         }
-        User.setUsername(loginOrEmail);
-        User.setNickname(loginOrEmail);
-        User.setEmail("denis.chemeris@gmail.com");
         return true;
+    }
+
+    @Override
+    public void Login(String body, View v) throws JSONException {
+        try {
+            JSONObject jsonUser = new JSONObject(body);
+            User.setEmail(jsonUser.getString("email"));
+            User.setUsername(jsonUser.getString("username"));
+            User.setNickname(jsonUser.getString("nickname"));
+            User.setCreated_at(jsonUser.getString("created_at"));
+            User.setUpdated_at(jsonUser.getString("updated_at"));
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } catch (JSONException e) {
+            Log.e("JSON_LOGIN", "BODY", e);
+        }
     }
 }
