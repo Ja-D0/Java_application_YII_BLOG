@@ -11,4 +11,7 @@
     <string name="createPost">Создать объявление</string>
     <string name="refresh">Обновить</string>
     <string name="delete">Удалить</string>
+    <string name="submit">Применить</string>
+    <string name="nickname">Никнейм</string>
+    <string name="profile_email">email</string>
 </resources>

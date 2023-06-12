@@ -23,8 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.blog.ProfileActivity" />
-        <activity android:name="com.example.blog.MyPostsActivity" />
+        <activity android:name="com.example.blog.PostsDoActivity" />
         <activity android:name="com.example.blog.PostInformationActivity" />
 
     </application>

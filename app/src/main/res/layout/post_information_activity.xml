@@ -4,14 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/cardview_shadow_start_color">
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/PostTitle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/pink"
+        android:gravity="center"
+        android:text="@string/createPost"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/postInformationImage"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/postInformationImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/post_default_picture"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/image_background_list"
+        android:padding="5dp"
+        app:layout_constraintTop_toBottomOf="@id/PostTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/postInformation"
@@ -21,7 +38,7 @@
         android:id="@+id/postInformation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/violet"
+        android:background="@drawable/gradient"
         app:layout_constraintBottom_toBottomOf="@id/postInformationButtons"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -36,6 +53,7 @@
             android:gravity="center"
             android:text="@string/postTitle"
             android:textSize="28sp"
+            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -47,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/postAuthor"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -60,7 +79,8 @@
             android:layout_margin="30dp"
             android:text="@string/postDescription"
             android:textSize="20sp"
-            android:background="@color/white"
+            android:background="@drawable/background_list"
+            android:paddingStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -73,7 +93,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/pink"
         app:layout_constraintTop_toBottomOf="@id/postInformation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -85,14 +105,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/refresh"/>
+            android:text="@string/refresh"
+            android:background="@drawable/image_background_list"/>
 
         <Button
             android:id="@+id/postInformationDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete"
-            android:layout_margin="8dp" />
+            android:layout_margin="8dp"
+            android:background="@drawable/image_background_list"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
