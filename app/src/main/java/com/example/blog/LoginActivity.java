@@ -64,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         User.setUsername(loginOrEmail);
+        User.setNickname(loginOrEmail);
+        User.setEmail("denis.chemeris@gmail.com");
         return true;
     }
 }
