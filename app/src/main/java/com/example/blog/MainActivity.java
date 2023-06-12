@@ -104,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
                         fillPostsList();
                         return true;
                     }
+                    case R.id.action_exit: {
+                        deleteUser();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
                 return false;
             }
@@ -120,5 +126,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbController.deleteAll();
+    }
+    private void deleteUser(){
+        User.setNickname(null);
+        User.setUsername(null);
+        User.setEmail(null);
     }
 }
