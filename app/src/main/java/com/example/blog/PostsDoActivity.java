@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +14,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 
-public class MyPostsActivity extends AppCompatActivity {
+public class PostsDoActivity extends AppCompatActivity {
 
     private EditText title, author, description, create, update;
     private Button createOrUpdate;
