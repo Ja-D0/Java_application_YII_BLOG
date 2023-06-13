@@ -163,19 +163,20 @@ public class HttpRequestController {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String jsonString = "{\"password\":\"" + password +"\", \"username\":\"" + login +"\"}";
+                String jsonString = "{\"password\":\"" + password + "\", \"username\":\"" + login + "\"}";
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonString);
 
                 Request request = new Request.Builder().url(URL_CHECK_USER).post(requestBody).build();
                 try (Response response = httpClient.newCall(request).execute()) {
                     if (!response.isSuccessful()) {
-                        Snackbar.make(v, "Неправильный логин или пароль", Snackbar.LENGTH_SHORT).show();
+                        loginInterface.Login(login, password, v);
                         throw new IOException("Запрос к серверу не был успешен: " +
                                 response.code() + " " + response.message());
                     }
-                    loginInterface.Login(response.body().string(), v);
+                    loginInterface.Login(response.body().string());
                 } catch (IOException e) {
                     System.out.println("Ошибка подключения: " + e);
+                    loginInterface.Login(login, password, v);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

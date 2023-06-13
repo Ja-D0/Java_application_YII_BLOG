@@ -107,19 +107,12 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/profileInformationUpdateButton"
+            android:id="@+id/myPosts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/refresh"
-            android:background="@drawable/image_background_list"/>
-
-        <Button
-            android:id="@+id/profileInformationDeleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete"
-            android:layout_margin="8dp"
+            android:padding="10dp"
+            android:text="@string/myPosts"
             android:background="@drawable/image_background_list"/>
     </LinearLayout>
 

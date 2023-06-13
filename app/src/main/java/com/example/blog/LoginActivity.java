@@ -26,8 +26,8 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
     private Button enter;
     private String loginOrEmail, password;
     private EditText loginField, passwordField;
-    private final String testLogin = "admin";
-    private final String testPassword = "admin";
+    private final String testLogin = "local";
+    private final String testPassword = "local";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,11 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
         loginField = findViewById(R.id.loginOrEmail);
         passwordField = findViewById(R.id.password);
 
-        if (User.getUsername() != null){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        login();
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
     }
 
     @Override
-    public void Login(String body, View v) throws JSONException {
+    public void Login(String body) throws JSONException {
         try {
             JSONObject jsonUser = new JSONObject(body);
             User.setEmail(jsonUser.getString("email"));
@@ -74,11 +70,38 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
             User.setNickname(jsonUser.getString("nickname"));
             User.setCreated_at(jsonUser.getString("created_at"));
             User.setUpdated_at(jsonUser.getString("updated_at"));
+            login();
+
+        } catch (JSONException e) {
+            Log.e("JSON_LOGIN", "BODY", e);
+        }
+    }
+    @Override
+    public void Login(String login, String password, View v){
+        if (Objects.equals(login, testLogin) && Objects.equals(password, testPassword)){
+            User.setEmail("email");
+            User.setNickname(login);
+            User.setUsername(login);
+            User.setCreated_at("00.00.0000");
+            User.setUpdated_at("00.00.0000");
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-        } catch (JSONException e) {
-            Log.e("JSON_LOGIN", "BODY", e);
+        }
+        Snackbar.make(v, "Неправильный логин или пароль", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        login();
+    }
+
+    private void login(){
+        if (User.getUsername() != null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

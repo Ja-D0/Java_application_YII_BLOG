@@ -26,6 +26,7 @@
         <activity android:name="com.example.blog.PostInformationActivity" />
         <activity android:name="com.example.blog.MainActivity" />
         <activity android:name="com.example.blog.ProfileActivity" />
+        <activity android:name="com.example.blog.MyPostsActivity" />
 
     </application>
 

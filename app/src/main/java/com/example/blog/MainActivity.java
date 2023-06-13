@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillPostsList() {
         ArrayList<Post> listPosts = dbController.selectAll();
-        PostAdapter adapter = new PostAdapter(this, R.layout.layout_post, listPosts);
+        PostAdapter adapter = new PostAdapter(this, post_item_layout, listPosts);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

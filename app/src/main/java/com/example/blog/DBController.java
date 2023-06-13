@@ -82,6 +82,23 @@ class DBController {
                 cursor.getString(NUM_COLUMN_CREATED_AT),
                 cursor.getString(NUM_COLUMN_UPDATED_AT));
     }
+    protected ArrayList<Post> selectMyPosts(){
+        ArrayList<Post> listPosts = new ArrayList<Post>();
+        String query = "SELECT * FROM " + TABLE_ADS + " WHERE " + COLUMN_AUTHOR + " = " + "\"" + User.getNickname() + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        Log.i("SQL", Arrays.toString(cursor.getColumnNames()), new Throwable());
+        while (cursor.moveToNext()){
+            Post post = new Post(cursor.getInt(NUM_COLUMN_ID), cursor.getString(NUM_COLUMN_TITLE),
+                    cursor.getString(NUM_COLUMN_DESCRIPTION),
+                    cursor.getString(NUM_COLUMN_AUTHOR),
+                    cursor.getString(NUM_COLUMN_CREATED_AT),
+                    cursor.getString(NUM_COLUMN_UPDATED_AT));
+            listPosts.add(post);
+        }
+        cursor.close();
+        Log.i("SQL", Arrays.toString(cursor.getColumnNames()), new Throwable());
+        return listPosts;
+    }
     protected ArrayList<Post> selectAll(){
         ArrayList<Post> listPosts = new ArrayList<Post>();
         String query = "SELECT * FROM " + TABLE_ADS;
