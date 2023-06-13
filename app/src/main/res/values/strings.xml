@@ -14,4 +14,8 @@
     <string name="submit">Применить</string>
     <string name="nickname">Никнейм</string>
     <string name="profile_email">email</string>
+    <string name="login">Логин/Email</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Войти</string>
+    <string name="exit">Выйти</string>
 </resources>

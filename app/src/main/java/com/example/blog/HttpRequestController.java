@@ -2,12 +2,16 @@ package com.example.blog;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +35,7 @@ public class HttpRequestController {
     private static final String URL_GET_POST = "http://192.168.1.9/api/get_post?id=";
     private static final String URL_UPDATE_POST = "http://192.168.1.9/api/update_post";
     private static final String URL_DELETE_POST = "http://192.168.1.9/api/delete_post";
+    private static final String URL_CHECK_USER = "http://192.168.1.9/api/check_user";
 
 
     protected static void init() {
@@ -127,6 +132,7 @@ public class HttpRequestController {
         });
         thread.start();
     }
+
     protected static void delete_post(Post post) {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -147,6 +153,32 @@ public class HttpRequestController {
                     Log.i("RESPONCE", response.body().string());
                 } catch (IOException e) {
                     System.out.println("Ошибка подключения: " + e);
+                }
+            }
+        });
+        thread.start();
+    }
+
+    protected static void check_user(String login, String password, LoginInterface loginInterface, View v) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String jsonString = "{\"password\":\"" + password + "\", \"username\":\"" + login + "\"}";
+                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonString);
+
+                Request request = new Request.Builder().url(URL_CHECK_USER).post(requestBody).build();
+                try (Response response = httpClient.newCall(request).execute()) {
+                    if (!response.isSuccessful()) {
+                        loginInterface.Login(login, password, v);
+                        throw new IOException("Запрос к серверу не был успешен: " +
+                                response.code() + " " + response.message());
+                    }
+                    loginInterface.Login(response.body().string());
+                } catch (IOException e) {
+                    System.out.println("Ошибка подключения: " + e);
+                    loginInterface.Login(login, password, v);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private ImageButton imageButtonMenu;
     private ImageButton button;
-    private  DBController dbController;
+    private DBController dbController;
     private int post_item_layout;
 
     @Override
@@ -42,40 +42,43 @@ public class MainActivity extends AppCompatActivity {
         fillPostsList();
     }
 
-    private void addPosts_toBD(ArrayList<Post> postsList){
+    private void addPosts_toBD(ArrayList<Post> postsList) {
         dbController.insert(postsList);
     }
-    private void fillPostsList(){
-       ArrayList<Post> listPosts = dbController.selectAll();
-       PostAdapter adapter = new PostAdapter(this, R.layout.layout_post, listPosts);
-       listView.setAdapter(adapter);
-       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               int post_id = ((Post) listPosts.get(position)).getId();
-               Log.i("ID", String.valueOf(post_id), new Throwable());
-               Intent intent = new Intent(MainActivity.this, PostInformationActivity.class);
-               intent.putExtra("post_id", post_id);
-               startActivity(intent);
-           }
-       });
+
+    private void fillPostsList() {
+        ArrayList<Post> listPosts = dbController.selectAll();
+        PostAdapter adapter = new PostAdapter(this, post_item_layout, listPosts);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int post_id = ((Post) listPosts.get(position)).getId();
+                Log.i("ID", String.valueOf(post_id), new Throwable());
+                Intent intent = new Intent(MainActivity.this, PostInformationActivity.class);
+                intent.putExtra("post_id", post_id);
+                startActivity(intent);
+            }
+        });
     }
-    public void createPost(View view){
+
+    public void createPost(View view) {
         Intent intent = new Intent(this, PostsDoActivity.class);
         startActivity(intent);
     }
-/*
-    private void openProfile(){
+
+    /*
+        private void openMyPosts(){
+            Intent intent = new Intent(this, MyPostsActivity.class);
+            startActivity(intent);
+        }
+     */
+    private void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+    }
 
-    }
-    private void openMyPosts(){
-        Intent intent = new Intent(this, MyPostsActivity.class);
-        startActivity(intent);
-    }
- */
-    private void createMenu(){
+    private void createMenu() {
         PopupMenu menu = MainMenu.createMainMenu(this, imageButtonMenu, textView);
         imageButtonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,20 +89,26 @@ public class MainActivity extends AppCompatActivity {
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    //case R.id.action_profile:{
-                    //    openProfile();
-                    //    return true;
-                    //}
+                switch (item.getItemId()) {
+                    case R.id.action_profile: {
+                        openProfile();
+                        return true;
+                    }
                     //case R.id.action_myPosts:{
                     //    openMyPosts();
                     //    return true;
                     //}
-                    case R.id.action_refresh:{
+                    case R.id.action_refresh: {
                         dbController.deleteAll();
                         addPosts_toBD(HttpRequestController.get_posts());
                         fillPostsList();
                         return true;
+                    }
+                    case R.id.action_exit: {
+                        deleteUser();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
                 return false;
@@ -117,5 +126,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbController.deleteAll();
+    }
+    private void deleteUser(){
+        User.setNickname(null);
+        User.setUsername(null);
+        User.setEmail(null);
     }
 }

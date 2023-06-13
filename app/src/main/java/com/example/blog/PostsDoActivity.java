@@ -16,7 +16,7 @@ import java.util.TimeZone;
 
 public class PostsDoActivity extends AppCompatActivity {
 
-    private EditText title, author, description, create, update;
+    private EditText title, description, create, update;
     private Button createOrUpdate;
     private Intent intent;
     private int post_id;
@@ -28,7 +28,6 @@ public class PostsDoActivity extends AppCompatActivity {
         setContentView(R.layout.create_post);
 
         title = findViewById(R.id.title);
-        author = findViewById(R.id.author);
         description = findViewById(R.id.description);
         createOrUpdate = findViewById(R.id.create);
         dbController = new DBController(this);
@@ -45,13 +44,13 @@ public class PostsDoActivity extends AppCompatActivity {
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT+3"));
                 String currentTime = sdf.format(new Date());
                 if (post_id < 0) {
-                    Post post = new Post(title.getText().toString(), description.getText().toString(), author.getText().toString(),currentTime, currentTime);
+                    Post post = new Post(title.getText().toString(), description.getText().toString(), User.getNickname(),currentTime, currentTime);
                     dbController.insert(post);
                     HttpRequestController.create_post(post);
                     finish();
                 } else {
                     Post post = dbController.select(post_id);
-                    post.setAuthor(author.getText().toString());
+                    post.setAuthor(User.getNickname());
                     post.setTitle(title.getText().toString());
                     post.setDescription(description.getText().toString());
                     post.setUpdated_at(currentTime);
@@ -67,7 +66,6 @@ public class PostsDoActivity extends AppCompatActivity {
         if (post_id >= 0) {
             Post post = dbController.select(post_id);
             title.setText(post.getTitle());
-            author.setText(post.getAuthor());
             description.setText(post.getDescription());
         }
     }

@@ -15,16 +15,18 @@
         android:theme="@style/Theme.BLOG"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.example.blog.PostsDoActivity" />
         <activity android:name="com.example.blog.PostInformationActivity" />
+        <activity android:name="com.example.blog.MainActivity" />
+        <activity android:name="com.example.blog.ProfileActivity" />
+        <activity android:name="com.example.blog.MyPostsActivity" />
 
     </application>
 
